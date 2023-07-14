@@ -22,6 +22,9 @@ class MyDetectorConstruction : public G4VUserDetectorConstruction {
         MyDetectorConstruction();
         ~MyDetectorConstruction();
 
+        G4double plateThick;
+        G4double plateDist;
+
 
         G4LogicalVolume *GetScoringVolume() const{ return fScoringVolume;}
 
@@ -38,11 +41,11 @@ class MyDetectorConstruction : public G4VUserDetectorConstruction {
 
         G4LogicalVolume *fScoringVolume, *logicDetector, *logicWatertank, *logicCryoborder, *logicCryo, *logicouterCryoborder;
         G4LogicalVolume *logicVacGap, *logicPMMA, *logicInnerWatertank;
+        G4GenericMessenger *fMessenger;
 
         void defineMaterials();
-        void addOpticalBorders();
-        G4Material *H2O, *Gdmat, *Steelmat, *Airmat, *worldMat, *lAr, *Gdsol, *vac;
-        G4Element *elGd;
+        G4Material *H2O, *Gdmat, *Steelmat, *Airmat, *worldMat, *lAr, *Gdsol, *vac, *PMMA, *loadedPMMA;
+        G4Element *elGd, *C, *H, *O;
 };
 
 #endif
