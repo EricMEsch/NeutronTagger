@@ -2,10 +2,6 @@
 cd ../..
 . software/geant4/geant4-v11.0.3-install/share/Geant4-11.0.3/geant4make/geant4make.sh
 cd sim/GdDesignStudiesBuild
-rm /NCNewestSetup/construction.cc
-rm /NCNewestSetup/construction.hh
-rm /GammaKaskades/construction.cc
-rm /GammaKaskades/construction.hh
 cp ../GdDesignStudies/Curtain/construction.cc NCNewestSetup/
 cp ../GdDesignStudies/Curtain/construction.hh NCNewestSetup/
 cp ../GdDesignStudies/Optics/construction.cc GammaKaskades/
