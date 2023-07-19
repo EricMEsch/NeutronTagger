@@ -7,7 +7,7 @@ MyDetectorConstruction::MyDetectorConstruction() //Constructor
     fMessenger->DeclareProperty("plateDist", plateDist, "Distance from Cryostat");
     fMessenger->DeclareProperty("plateThick", plateThick, "Thickness of Plate");
 
-    plateThick = 0.;
+    plateThick = 10.*cm;
     plateDist = 0.;
 
     defineMaterials();
