@@ -35,31 +35,6 @@ void MyDetectorConstruction::defineMaterials(){
 
 
     /*Use a Material of the Nistmanager*/
-
-
-    /*Define Gadolinium with natural abundances if enriched Gd is used*/
-    
-    /*
-    G4Isotope *Gd154 = new G4Isotope("Gd154", 64, 154);
-    G4Isotope *Gd155 = new G4Isotope("Gd155", 64, 155);
-    G4Isotope *Gd156 = new G4Isotope("Gd156", 64, 156);
-    G4Isotope *Gd157 = new G4Isotope("Gd157", 64, 157);
-    G4Isotope *Gd158 = new G4Isotope("Gd158", 64, 158);
-    G4Isotope *Gd160 = new G4Isotope("Gd160", 64, 160);
-
-    elGd = new G4Element("Gadolinium", "Gd", 6);
-    elGd->AddIsotope(Gd154, 2.18*perCent);
-    elGd->AddIsotope(Gd155, 14.8*perCent);
-    elGd->AddIsotope(Gd156, 20.57*perCent);
-    elGd->AddIsotope(Gd157, 15.65*perCent);
-    elGd->AddIsotope(Gd158, 24.94*perCent);
-    elGd->AddIsotope(Gd160, 21.86*perCent);
-
-    Gdmat = new G4Material("Gadoliniummat", 7.9*g/cm3, 1);
-    Gdmat->AddElement(elGd, 1);
-    */
-    
-    /* Or use with natural abundances*/
     elGd = nist->FindOrBuildElement("Gd");
     Gdmat = nist->FindOrBuildMaterial("G4_Gd");
 
@@ -198,8 +173,10 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct(){
 
     G4OpticalSurface *OpSurface = new G4OpticalSurface("VM");
 
-    G4LogicalBorderSurface *Surface = new G4LogicalBorderSurface("SteelSurface", physWatertank, physouterCryoborder , OpSurface);
-    G4LogicalBorderSurface *Surface2 = new G4LogicalBorderSurface("SteelSurface", physWatertank, physDetector , OpSurface);
+    G4LogicalSkinSurface *Surface = new G4LogicalSkinSurface("WaterSurface", logicWatertank, OpSurface);
+
+    //G4LogicalBorderSurface *Surface = new G4LogicalBorderSurface("SteelSurface", physWatertank, physouterCryoborder , OpSurface);
+    //G4LogicalBorderSurface *Surface2 = new G4LogicalBorderSurface("SteelSurface", physWatertank, physDetector , OpSurface);
     OpSurface->SetType(dielectric_dielectric);
     OpSurface->SetModel(unified);
     OpSurface->SetFinish(groundfrontpainted);

@@ -61,8 +61,6 @@ int main(){
     Session("Water");
     Session("Plates");
     Session("Dissolved");
-    Session("PMMA");
-    Session("Curtain");
        
     return 0;
 }

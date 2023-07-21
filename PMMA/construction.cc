@@ -4,19 +4,12 @@ MyDetectorConstruction::MyDetectorConstruction() //Constructor
 {
     fMessenger = new G4GenericMessenger(this, "/detector/", "Detector Construction");
 
-    fMessenger->DeclareProperty("platehHeight", platehHeight, "half height of plates");
-    fMessenger->DeclareProperty("platehDepth", platehDepth, "half depth of plates");
-    fMessenger->DeclareProperty("platehThick", platehThick, "half Thickness of plates");
-    fMessenger->DeclareProperty("plateNum", plateNum, "Number of Plates");
     fMessenger->DeclareProperty("plateDist", plateDist, "Distance from Cryostat");
-    fMessenger->DeclareProperty("Setup", Setup, "Setup, 0 Water, 1 Plates, 2 Dissolved");
+    fMessenger->DeclareProperty("plateThick", plateThick, "Thickness of Plate");
 
-    platehHeight = 325*cm;
-    platehDepth = 5*cm;
-    platehThick = 0.01*cm;
-    plateNum = 750.;
+    plateThick = 10.*cm;
+
     plateDist = 0.;
-    Setup = 0;
 
     defineMaterials();
 }
@@ -109,6 +102,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct(){
     G4double cryrad = 269*cm;
     G4double cryheight = 269*cm;
     G4double detectorrad = cryrad + cryowall + vacgap + cryowall + 80*cm;
+    G4double outercryrad = cryrad + cryowall + vacgap + cryowall;
+    G4double outercryheight = cryheight + cryowall + vacgap + cryowall;
 
     G4double tankrad = 550*cm;
     G4double tankheight = 650*cm;
@@ -138,50 +133,11 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct(){
 
     /*Water Tank around cryostat*/
     solidWatertank = new G4Tubs("solidWatertank", 0, detectorrad, tankheight - 1*cm, 0, CLHEP::twopi);
-    if(Setup == 2)
-    {
-        logicWatertank = new G4LogicalVolume(solidWatertank, Gdsol, "logicWatertank");
-    }
-    else
-    {
-        logicWatertank = new G4LogicalVolume(solidWatertank, H2O, "logicWatertank");
-    }
-
+    logicWatertank = new G4LogicalVolume(solidWatertank, H2O, "logicWatertank");
     physWatertank = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicWatertank, "physWatertank", logicDetector, false, 0, true);
 
-    /*
-    if(Setup == 1)
-    {
-        solidPlates = new G4Box("solidPlates",platehDepth,platehThick,platehHeight);
-        logicPlates = new G4LogicalVolume(solidPlates, Gdmat, "logicPlates"); 
-        for(G4int i = 0; i < plateNum; i++)
-        {
-            G4Rotate3D rotZ(i* 360./plateNum *deg, G4ThreeVector(0,0,1));
-            G4Translate3D transX(G4ThreeVector(cryrad + cryowall + vacgap + cryowall + platehDepth + plateDist,0*cm,0*cm));
-            G4Transform3D transformPlates = (rotZ)*(transX);
-            physPlates = new G4PVPlacement(transformPlates, logicPlates, "physPlates", logicWatertank, false, 0, true);
-        }
-        G4double platetophHeight = 5*cm;
-        G4double platetophDepth = 325*cm;
-        G4double platetophThick = 0.01*cm;
-        G4double platetopNum = 300.;
-        for(G4int i = 0; i < platetopNum; i++)
-        {
-            solidtopPlates = new G4Box("solidtopPlates",std::sqrt(std::pow(platetophDepth,2) - std::abs(std::pow(-320.*cm + (640.*i/platetopNum *cm),2))),platetophThick,platetophHeight);
-            logictopPlates = new G4LogicalVolume(solidtopPlates, Gdmat, "logictopPlates"); 
-            phystopPlates = new G4PVPlacement(0, G4ThreeVector(0.,-320.*cm + (640.*i/platetopNum *cm),cryheight + cryowall + vacgap + cryowall + platetophHeight), logictopPlates, "phystopPlates", logicWatertank, false, 0, true);
-        }
-        for(G4int i = 0; i < platetopNum; i++)
-        {
-            solidtopPlates = new G4Box("solidtopPlates",std::sqrt(std::pow(platetophDepth,2) - std::abs(std::pow(-320.*cm + (640.*i/platetopNum *cm),2))),platetophThick,platetophHeight);
-            logictopPlates = new G4LogicalVolume(solidtopPlates, Gdmat, "logictopPlates"); 
-            physbotPlates = new G4PVPlacement(0, G4ThreeVector(0.,-320.*cm + (640.*i/platetopNum *cm),-(cryheight + cryowall + vacgap + cryowall + platetophHeight)), logictopPlates, "physbotPlates", logicWatertank, false, 0, true);
-        }
-    }
-    */
-
     //20cm PMMA tube
-    solidPMMA = new G4Tubs("solidPMMA", 0, cryrad + cryowall + vacgap + cryowall + 10*cm, cryheight + cryowall + vacgap + cryowall + 10*cm, 0, CLHEP::twopi);
+    solidPMMA = new G4Tubs("solidPMMA", 0, outercryrad + plateThick + plateDist, outercryheight + plateThick + plateDist, 0, CLHEP::twopi);
     logicPMMA = new G4LogicalVolume(solidPMMA, loadedPMMA, "logicPMMA");
     physPMMA= new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicPMMA, "physPMMA", logicWatertank, false, 0, true);
 
