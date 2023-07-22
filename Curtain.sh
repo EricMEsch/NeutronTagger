@@ -6,6 +6,8 @@ cp ../GdDesignStudies/Curtain/construction.cc NCNewestSetup/
 cp ../GdDesignStudies/Curtain/construction.hh NCNewestSetup/
 cp ../GdDesignStudies/Optics/construction.cc GammaKaskades/
 cp ../GdDesignStudies/Optics/construction.hh GammaKaskades/
+cp ../GdDesignStudies/WWShowers/Realconverter.cc WWShowers/
+cp ../GdDesignStudies/Optics/Evaluator.cc Optics/
 cd NCNewestSetup/build
 cmake ..
 make -j4

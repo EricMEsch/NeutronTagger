@@ -134,11 +134,11 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct(){
     logicWatertank = new G4LogicalVolume(solidWatertank, H2O, "logicWatertank");
     physWatertank = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicWatertank, "physWatertank", logicDetector, false, 0, true);
 
-    solidCurtain = new G4Tubs("solidCurtain", 0, outercryrad + 10*cm + 100*angstrom, outercryheight + 10*cm + 10*angstrom, 0, CLHEP::twopi);
+    solidCurtain = new G4Tubs("solidCurtain", 0, outercryrad + 5*cm + 600*angstrom, outercryheight + 5*cm + 600*angstrom, 0, CLHEP::twopi);
     logicCurtain = new G4LogicalVolume(solidCurtain, Gdmat, "logicCurtain");
     physCurtain = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicCurtain, "physCurtain", logicWatertank, false, 0, true);
 
-    solidInnerWatertank = new G4Tubs("solidInnerWatertank", 0, outercryrad + 10*cm, outercryheight + 10*cm, 0, CLHEP::twopi);
+    solidInnerWatertank = new G4Tubs("solidInnerWatertank", 0, outercryrad + 5*cm, outercryheight + 5*cm, 0, CLHEP::twopi);
     logicInnerWatertank = new G4LogicalVolume(solidInnerWatertank, H2O, "logicInnerWatertank");
     physInnerWatertank = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicInnerWatertank, "physInnerWatertank", logicCurtain, false, 0, true);
 
