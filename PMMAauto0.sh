@@ -2,8 +2,8 @@
 cd ../..
 . software/geant4/geant4-v11.0.3-install/share/Geant4-11.0.3/geant4make/geant4make.sh
 cd sim/GdDesignStudiesBuild
-cp ../GdDesignStudies/Randomgenerator/NC/generator.cc NCNewestSetup/
-cp ../GdDesignStudies/Randomgenerator/NC/generator.hh NCNewestSetup/
+cp ../GdDesignStudies/normalgenerator/NC/generator.cc NCNewestSetup/
+cp ../GdDesignStudies/normalgenerator/NC/generator.hh NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.cc NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.hh NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.cc GammaKaskades/
