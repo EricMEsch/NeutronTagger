@@ -18,7 +18,7 @@ make -j4
 cd ../../PMMAauto
 g++ -Wall -o main main.cc
 for((i=0; i<=0; i =i+2)); do
-    for((j= 1; j <= 15; j=j+2)); do
+    for((j= 5; j <= 5; j=j+2)); do
         ./main ${i} ${j}
         cp run.mac ../NCNewestSetup/build
         cd ../NCNewestSetup/build
