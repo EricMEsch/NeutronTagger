@@ -33,12 +33,12 @@ class MyDetectorConstruction : public G4VUserDetectorConstruction {
     private:
 
         
-        G4Tubs *solidDetector, *solidWatertank, *solidCryoborder, *solidCryo, *solidouterCryoborder, *solidVacGap, *solidPMMA;
+        G4Tubs *solidDetector, *solidWatertank, *solidCryoborder, *solidCryo, *solidouterCryoborder, *solidVacGap, *solidPMMA, *solidFlange, *solidFlange1;
         G4Box *solidWorld, *solidPlates, *solidtopPlates;
-        G4LogicalVolume *logicWorld;
-        G4VPhysicalVolume *physWorld, *physDetector, *physWatertank, *physPlates;
+        G4LogicalVolume *logicWorld, *logicFlange, *logicFlange1;
+        G4VPhysicalVolume *physWorld, *physDetector, *physWatertank, *physPlates, *physFlange, *physFlange1;
         G4VPhysicalVolume *physCryoborder, *physCryo, *phystopPlates, *physbotPlates, *physouterCryoborder, *physVacGap, *physPMMA;
-
+        
         G4LogicalVolume *fScoringVolume, *logicDetector, *logicWatertank, *logicPlates, *logicCryoborder, *logicCryo, *logictopPlates, *logicouterCryoborder, *logicVacGap, *logicPMMA;
 
         G4GenericMessenger *fMessenger;

@@ -2,17 +2,23 @@
 cd ../..
 . software/geant4/geant4-v11.0.3-install/share/Geant4-11.0.3/geant4make/geant4make.sh
 cd sim/GdDesignStudiesBuild
-cp ../GdDesignStudies/Moritzgenerator/generator.cc NCNewestSetup/
-cp ../GdDesignStudies/Moritzgenerator/generator.hh NCNewestSetup/
+cp ../GdDesignStudies/normalgenerator/NC/generator.cc NCNewestSetup/
+cp ../GdDesignStudies/normalgenerator/NC/generator.hh NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.cc NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.hh NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.cc GammaKaskades/
 cp ../GdDesignStudies/PMMA/construction.hh GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaEachPosition/event.cc GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaEachPosition/event.hh GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaEachPosition/run.cc GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaEachPosition/run.hh GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaEachPosition/stepping.cc GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaEachPosition/stepping.hh GammaKaskades/
 cp ../GdDesignStudies/WWShowers/Realconverter.cc WWShowers/
 cp ../GdDesignStudies/Optics/Evaluator.cc Optics/
 cd NCNewestSetup/build
 cmake ..
-make -j4
+make -j4s
 ./sim run.mac
 rm ../../WWShowers/output0_nt_Scoring.csv
 cp output0_nt_Scoring.csv ../../WWShowers
@@ -29,5 +35,5 @@ make -j4
 ./sim run.mac
 cp output0_nt_Scoring.csv ../../Optics
 cd ../../Optics
-mv output0_nt_Scoring.csv PMMAPlatenodist0.txt
+mv output0_nt_Scoring.csv PMMAPosition.txt
 g++ -Wall -o ev Evaluator.cc

@@ -104,6 +104,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct(){
     G4double detectorrad = cryrad + cryowall + vacgap + cryowall + 80*cm;
     G4double outercryrad = cryrad + cryowall + vacgap + cryowall;
     G4double outercryheight = cryheight + cryowall + vacgap + cryowall;
+    G4double flangerad = 240*cm;
+    G4double flangehheight = 159.5*cm;
 
     G4double tankrad = 550*cm;
     G4double tankheight = 650*cm;
@@ -136,10 +138,19 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct(){
     logicWatertank = new G4LogicalVolume(solidWatertank, H2O, "logicWatertank");
     physWatertank = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicWatertank, "physWatertank", logicDetector, false, 0, true);
 
+    solidFlange1 = new G4Tubs("solidFlange", 0, flangerad, flangehheight, 0, CLHEP::twopi);
+    logicFlange1 = new G4LogicalVolume(solidFlange1, Steelmat, "logicFlange");
+    physFlange1 = new G4PVPlacement(0, G4ThreeVector(0.,0.,outercryheight + plateThick / 2. + flangehheight), logicFlange1, "physFlange", logicWatertank, false, 0, true);
+
     //20cm PMMA tube
     solidPMMA = new G4Tubs("solidPMMA", 0, outercryrad + plateThick + plateDist, outercryheight + plateThick + plateDist, 0, CLHEP::twopi);
     logicPMMA = new G4LogicalVolume(solidPMMA, loadedPMMA, "logicPMMA");
     physPMMA= new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logicPMMA, "physPMMA", logicWatertank, false, 0, true);
+
+    //Top Flange in PMMA
+    solidFlange = new G4Tubs("solidFlange", 0, flangerad, plateThick / 2., 0, CLHEP::twopi);
+    logicFlange = new G4LogicalVolume(solidFlange, Steelmat, "logicFlange");
+    physFlange = new G4PVPlacement(0, G4ThreeVector(0.,0.,outercryheight + plateThick / 2.), logicFlange, "physFlange", logicPMMA, false, 0, true);
 
 
     /*Outer Steel Border*/
