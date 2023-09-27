@@ -8,12 +8,12 @@ cp ../GdDesignStudies/PMMA/construction.cc NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.hh NCNewestSetup/
 cp ../GdDesignStudies/PMMA/construction.cc GammaKaskades/
 cp ../GdDesignStudies/PMMA/construction.hh GammaKaskades/
-cp ../GdDesignStudies/Readout/GammaEachPosition/event.cc GammaKaskades/
-cp ../GdDesignStudies/Readout/GammaEachPosition/event.hh GammaKaskades/
-cp ../GdDesignStudies/Readout/GammaEachPosition/run.cc GammaKaskades/
-cp ../GdDesignStudies/Readout/GammaEachPosition/run.hh GammaKaskades/
-cp ../GdDesignStudies/Readout/GammaEachPosition/stepping.cc GammaKaskades/
-cp ../GdDesignStudies/Readout/GammaEachPosition/stepping.hh GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaTime/event.cc GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaTime/event.hh GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaTime/run.cc GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaTime/run.hh GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaTime/stepping.cc GammaKaskades/
+cp ../GdDesignStudies/Readout/GammaTime/stepping.hh GammaKaskades/
 cp ../GdDesignStudies/WWShowers/Realconverter.cc WWShowers/
 cp ../GdDesignStudies/Optics/Evaluator.cc Optics/
 cd NCNewestSetup/build
@@ -35,5 +35,5 @@ make -j4
 ./sim run.mac
 cp output0_nt_Scoring.csv ../../Optics
 cd ../../Optics
-mv output0_nt_Scoring.csv PMMAPosition.txt
+mv output0_nt_Scoring.csv PMMAtime.txt
 g++ -Wall -o ev Evaluator.cc
