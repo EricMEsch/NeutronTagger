@@ -16,7 +16,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(){
     fParticleGun->SetParticleMomentum(0.8*MeV);              // Energy of Particle
     fParticleGun->SetParticleDefinition(particle);            //Which particle to shoot
     newfile = new std::fstream;
-    newfile->open("combined_all_muons.txt", std::ios::in);
+    newfile->open("combined_all_muons.csv", std::ios::in);
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator(){
@@ -66,10 +66,12 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent){
             pos =str.find(delimiter);
             G4double energy = std::stod(str.substr(0, pos))*eV;
 
-
+            G4double radius = std::sqrt(xPos * xPos + yPos * yPos);
             G4ThreeVector position(xPos,yPos,zPos);                                 // Where to creat particle
             G4ThreeVector mom(xMom,yMom,zMom);                                //Momentum of particle
-            if( xPos > 8*m || yPos > 8*m || zPos > 8*m)
+
+            //Do not create neutrons that are too far from detector setup
+            if( radius > 4.2*m || std::fabs(zPos) > 6.4*m)
             {
                 G4cout << "Out of bounds" << G4endl;
             }
@@ -78,7 +80,6 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent){
                 fParticleGun->SetParticlePosition(position);
                 fParticleGun->SetParticleMomentumDirection(mom); 
                 fParticleGun->SetParticleEnergy(energy); 
-                G4cout << "Mu: " << mu << G4endl; 
                 fParticleGun->GeneratePrimaryVertex(anEvent);
             }
             
